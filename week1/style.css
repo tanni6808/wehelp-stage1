@@ -7,15 +7,29 @@ body {
   margin: 0;
 }
 
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.2rem;
+  position: relative;
 }
 
 .nav-title {
   font-weight: bold;
+}
+
+.nav-burger-menu {
+  width: 6rem;
+  margin: -2rem 0;
+  position: absolute;
+  right: 0%;
+  cursor: pointer;
 }
 
 .text {
@@ -41,10 +55,31 @@ body {
 
 .nav-container {
   display: flex;
+  @media screen and (max-width: 600px) {
+    position: fixed;
+    top: 0%;
+    right: 0%;
+    height: 100vh;
+    z-index: 1;
+    background-color: white;
+    display: inline-block;
+    box-shadow: 0px -5px 5px rgb(0, 0, 0, 0.75);
+  }
+}
+
+.nav-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
 }
 
 .nav-item {
   margin-left: 2rem;
+  @media screen and (max-width: 600px) {
+    margin-left: 0;
+    padding: 2rem 6rem;
+  }
 }
 
 .main-container {
