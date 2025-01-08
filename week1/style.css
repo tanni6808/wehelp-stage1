@@ -85,7 +85,7 @@ body {
 .main-container {
   width: 120rem;
   margin: 0 auto;
-  @media screen and (min-width: 600px) and (max-width: 1200px) {
+  @media screen and (max-width: 1200px) {
     width: 90%;
   }
 }
@@ -97,6 +97,10 @@ body {
   gap: 2rem;
   @media screen and (min-width: 600px) and (max-width: 1200px) {
     grid-template-columns: repeat(4, 1fr);
+  }
+  @media screen and (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
   }
 }
 
