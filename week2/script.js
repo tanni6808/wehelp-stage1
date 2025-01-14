@@ -3,6 +3,41 @@ console.log("=== Task 1 ===");
 
 function findAndPrint(messages, currentStation) {
   // your code here
+  const greenLine = [
+    "Songshan",
+    "Nanjing Sanmin",
+    "Taipei Arena",
+    "Nanjing Fuxing",
+    "Songjiang Nanjing",
+    "Zhongshan",
+    "Beimen",
+    "Ximen",
+    "Xiaonanmen",
+    "Chiang Kai-Shek Memorial Hall",
+    "Guting",
+    "Taipower Building",
+    "Gongguan",
+    "Wanlong",
+    "Jingmei",
+    "Dapinglin",
+    "Qizhang",
+    "Xindian City Hall",
+    "Xindian",
+  ];
+
+  const currentStationIndex = greenLine.findIndex(
+    (el) => el === currentStation
+  );
+
+  const distance = [];
+  for (const [key, value] of Object.entries(messages)) {
+    greenLine.forEach((station, i) => {
+      if (value.includes(station)) {
+        distance.push(Math.abs(currentStationIndex - i));
+      }
+    });
+  }
+  console.log(distance);
 }
 const messages = {
   Bob: "I'm at Ximen MRT station.",
