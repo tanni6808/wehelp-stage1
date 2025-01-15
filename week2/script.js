@@ -3,41 +3,68 @@ console.log("=== Task 1 ===");
 
 function findAndPrint(messages, currentStation) {
   // your code here
-  const greenLine = [
-    "Songshan",
-    "Nanjing Sanmin",
-    "Taipei Arena",
-    "Nanjing Fuxing",
-    "Songjiang Nanjing",
-    "Zhongshan",
-    "Beimen",
-    "Ximen",
-    "Xiaonanmen",
-    "Chiang Kai-Shek Memorial Hall",
-    "Guting",
-    "Taipower Building",
-    "Gongguan",
-    "Wanlong",
-    "Jingmei",
-    "Dapinglin",
-    "Qizhang",
-    "Xindian City Hall",
-    "Xindian",
-  ];
+  const greenLine = {
+    main: [
+      "Songshan",
+      "Nanjing Sanmin",
+      "Taipei Arena",
+      "Nanjing Fuxing",
+      "Songjiang Nanjing",
+      "Zhongshan",
+      "Beimen",
+      "Ximen",
+      "Xiaonanmen",
+      "Chiang Kai-Shek Memorial Hall",
+      "Guting",
+      "Taipower Building",
+      "Gongguan",
+      "Wanlong",
+      "Jingmei",
+      "Dapinglin",
+      "Qizhang",
+      "Xindian City Hall",
+      "Xindian",
+    ],
+    sub: ["Qizhang", "Xiaobitan"],
+  };
 
-  const currentStationIndex = greenLine.findIndex(
-    (el) => el === currentStation
-  );
-
-  const distance = [];
-  for (const [key, value] of Object.entries(messages)) {
-    greenLine.forEach((station, i) => {
-      if (value.includes(station)) {
-        distance.push(Math.abs(currentStationIndex - i));
-      }
-    });
+  // find my current position (['line', index])
+  let myCurrentPosition = [];
+  for (const [line, stations] of Object.entries(greenLine)) {
+    if (stations.includes(currentStation)) {
+      myCurrentPosition = [line, stations.indexOf(currentStation)];
+      break;
+    }
   }
-  console.log(distance);
+
+  // for each message, create an object to record their 1. name 2. position
+  let friendsPosition = [];
+  for (const [name, message] of Object.entries(messages)) {
+    for (const [line, stations] of Object.entries(greenLine)) {
+      stations.forEach((station, i) => {
+        if (message.includes(station)) {
+          friendsPosition.push({ name: name, position: [line, i] });
+          return;
+        }
+      });
+    }
+  }
+  // calc. distances
+  friendsPosition.forEach((friend) => {
+    if (friend.position[0] === myCurrentPosition[0]) {
+      friend.distance = Math.abs(friend.position[1] - myCurrentPosition[1]);
+    } else {
+      const atMain =
+        friend.position[0] === "main" ? friend.position : myCurrentPosition;
+      friend.distance =
+        Math.abs(greenLine.main.indexOf("Qizhang") - atMain[1]) + 1;
+    }
+  });
+  // sort friendsPosition
+  const nearestFriends = friendsPosition
+    .sort((a, b) => a.distance - b.distance)
+    .filter((friend) => friend.distance === friendsPosition[0].distance);
+  console.log(nearestFriends.map((friend) => friend.name).join(", "));
 }
 const messages = {
   Bob: "I'm at Ximen MRT station.",
@@ -45,12 +72,17 @@ const messages = {
   Copper: "I just saw a concert at Taipei Arena.",
   Leslie: "I'm at home near Xiaobitan station.",
   Vivian: "I'm at Xindian station waiting for you.",
+  // test
+  Joe: "Beimen.",
 };
 findAndPrint(messages, "Wanlong"); // print Mary
 findAndPrint(messages, "Songshan"); // print Copper
 findAndPrint(messages, "Qizhang"); // print Leslie
 findAndPrint(messages, "Ximen"); // print Bob
 findAndPrint(messages, "Xindian City Hall"); // print Vivian
+
+//test
+findAndPrint(messages, "Songjiang Nanjing");
 
 //////////////////////////////////////
 // task 2
