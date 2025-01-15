@@ -45,7 +45,20 @@ print('=== Task 3 ===')
 
 def func(*data): 
  # your code here 
- print('test')
+ middel_names = []
+ unique = False
+ for name in data:
+  if len(name)==2 or len(name)==3:
+   middel_names+=[name[1]]
+  elif len(name) ==4 or len(name)==5:
+   middel_names+=[name[2]]
+ for i in range(len(middel_names)):
+  if middel_names.count(middel_names[i])==1:
+   print(data[i])
+   unique = True
+ if not unique:
+  print('沒有')
+
 func("彭大牆", "陳王明雅", "吳明") # print 彭大牆 
 func("郭靜雅", "王立強", "郭林靜宜", "郭立恆", "林花花") # print 林花花 
 func("郭宣雅", "林靜宜", "郭宣恆", "林靜花") # print 沒有 
