@@ -56,21 +56,17 @@ func("郭宣雅", "夏曼藍波安", "郭宣恆") # print 夏曼藍波安
 print('=== Task 4 ===')
 
 def get_number(index): 
- # your code here 
- print('test')
+ acc=0
+ i=0
+ while(i<index):
+  if (i+1)%3==0:
+   acc-=1
+  else:
+   acc+=4
+  i+=1
+ print(acc)
 
 get_number(1) # print 4 
 get_number(5) # print 15 
 get_number(10) # print 25 
 get_number(30) # print 70 
-
-########################################
-# task 5
-print('=== Task 5 ===')
-
-def find(spaces, stat, n): 
- # your code here 
- print('test')
-find([3, 1, 5, 4, 3, 2], [0, 1, 0, 1, 1, 1], 2) # print 5 
-find([1, 0, 5, 1, 3], [0, 1, 0, 1, 1], 4) # print -1 
-find([4, 6, 5, 8], [0, 1, 1, 1], 4) # print 2
