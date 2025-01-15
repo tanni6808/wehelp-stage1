@@ -145,8 +145,25 @@ book(consultants, 14, 3, "price"); // John
 // task 3
 console.log("=== Task 3 ===");
 
+const findMiddleName = function (name) {
+  if (name.length == 2 || name.length == 3) return name[1];
+  if (name.length == 4 || name.length == 5) return name[2];
+};
+
 function func(...data) {
   // your code here
+  // create an array for data
+  const names = [...data];
+  const middleNames = names.map((name) => findMiddleName(name));
+  let unique = false;
+  // for each middle name, use filter to find the same; if length>1, it's not unique
+  middleNames.forEach((middlename) => {
+    if (middleNames.filter((el) => el == middlename).length == 1) {
+      console.log(names[middleNames.indexOf(middlename)]);
+      unique = true;
+    }
+  });
+  if (!unique) console.log("沒有");
 }
 func("彭大牆", "陳王明雅", "吳明"); // print 彭大牆
 func("郭靜雅", "王立強", "郭林靜宜", "郭立恆", "林花花"); // print 林花花
