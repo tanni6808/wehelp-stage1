@@ -86,9 +86,9 @@ console.log("=== Task 2 ===");
 // your code here, maybe
 
 const bookingStatus = [
-  { name: "John", booked: [15] },
-  { name: "Bob", booked: [12] },
-  { name: "Jenny", booked: [10] },
+  { name: "John", booked: [] },
+  { name: "Bob", booked: [] },
+  { name: "Jenny", booked: [] },
 ];
 function book(consultants, hour, duration, criteria) {
   // your code here
@@ -97,14 +97,36 @@ function book(consultants, hour, duration, criteria) {
   for (let i = 0; i < duration; i++) {
     bookHours.push(hour + i);
   }
-  console.log(bookHours);
+  // console.log(bookHours);
   // find available consultants
   let availableConsultants = [];
   bookingStatus.forEach((consultant) => {
     const result = consultant.booked.filter((hour) => bookHours.includes(hour));
-    console.log(consultant.name, result);
+    // console.log(consultant.name, result[0]);
+    if (!result[0]) {
+      availableConsultants.push(
+        consultants.filter((el) => el.name == consultant.name)[0]
+      );
+    }
   });
+  if (!availableConsultants[0]) {
+    console.log("No Service");
+    return;
+  }
   // choose the best one base on criteria
+  if (criteria == "price")
+    availableConsultants.sort((a, b) => a.price - b.price);
+  else availableConsultants.sort((a, b) => b.rate - a.rate);
+  const bookedConsultant = availableConsultants[0];
+  console.log(bookedConsultant.name);
+
+  // mark booking status
+  bookHours.forEach((hour) =>
+    bookingStatus
+      .filter((el) => el.name == bookedConsultant.name)[0]
+      .booked.push(hour)
+  );
+  // console.log(bookingStatus);
 }
 const consultants = [
   { name: "John", rate: 4.5, price: 1000 },
