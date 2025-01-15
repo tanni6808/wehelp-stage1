@@ -60,7 +60,7 @@ function findAndPrint(messages, currentStation) {
         Math.abs(greenLine.main.indexOf("Qizhang") - atMain[1]) + 1;
     }
   });
-  // sort friendsPosition
+  // find nearest friends and print them out
   const nearestFriends = friendsPosition
     .sort((a, b) => a.distance - b.distance)
     .filter((friend) => friend.distance === friendsPosition[0].distance);
@@ -72,8 +72,6 @@ const messages = {
   Copper: "I just saw a concert at Taipei Arena.",
   Leslie: "I'm at home near Xiaobitan station.",
   Vivian: "I'm at Xindian station waiting for you.",
-  // test
-  Joe: "Beimen.",
 };
 findAndPrint(messages, "Wanlong"); // print Mary
 findAndPrint(messages, "Songshan"); // print Copper
@@ -81,16 +79,32 @@ findAndPrint(messages, "Qizhang"); // print Leslie
 findAndPrint(messages, "Ximen"); // print Bob
 findAndPrint(messages, "Xindian City Hall"); // print Vivian
 
-//test
-findAndPrint(messages, "Songjiang Nanjing");
-
 //////////////////////////////////////
 // task 2
 console.log("=== Task 2 ===");
 
 // your code here, maybe
+
+const bookingStatus = [
+  { name: "John", booked: [15] },
+  { name: "Bob", booked: [12] },
+  { name: "Jenny", booked: [10] },
+];
 function book(consultants, hour, duration, criteria) {
   // your code here
+  // list hour that wanted to book
+  let bookHours = [];
+  for (let i = 0; i < duration; i++) {
+    bookHours.push(hour + i);
+  }
+  console.log(bookHours);
+  // find available consultants
+  let availableConsultants = [];
+  bookingStatus.forEach((consultant) => {
+    const result = consultant.booked.filter((hour) => bookHours.includes(hour));
+    console.log(consultant.name, result);
+  });
+  // choose the best one base on criteria
 }
 const consultants = [
   { name: "John", rate: 4.5, price: 1000 },
