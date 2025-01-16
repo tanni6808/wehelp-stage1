@@ -2,16 +2,70 @@
 print('=== Task 1 ===')
 
 def find_and_print(messages, current_station): 
- # your code here 
- print('test')
+ green_line = {
+    'main': [
+      "Songshan",
+      "Nanjing Sanmin",
+      "Taipei Arena",
+      "Nanjing Fuxing",
+      "Songjiang Nanjing",
+      "Zhongshan",
+      "Beimen",
+      "Ximen",
+      "Xiaonanmen",
+      "Chiang Kai-Shek Memorial Hall",
+      "Guting",
+      "Taipower Building",
+      "Gongguan",
+      "Wanlong",
+      "Jingmei",
+      "Dapinglin",
+      "Qizhang",
+      "Xindian City Hall",
+      "Xindian",
+    ],
+    'sub': ["Qizhang", "Xiaobitan"],
+  }
+ # find my current position {'line': , 'index': }
+ if current_station in green_line["main"]:
+  current_position = {'line': 'main', 'index': green_line['main'].index(current_station)}
+ else:
+  current_position = {'line': 'sub', 'index': green_line['sub'].index(current_station)}
+ # for each message, create an dictionary {'name': , 'line': , 'index': }
+ friend_positions=[]
+ for name, message in messages.items():
+  for line in green_line:
+   for station in green_line[line]:
+    if station in message:
+     this_frined_position = {'name': name, 'line': line, 'index': green_line[line].index(station)}
+     friend_positions.append(this_frined_position)
+     break
+ # calc. disctances
+ for friend in friend_positions:
+  if friend['line']==current_position['line']:
+   friend['distance']=abs(friend['index']-current_position['index'])
+  else:
+   at_main=friend if friend['line']=='main' else current_position
+   friend['distance']=abs(green_line["main"].index("Qizhang")-at_main['index'])+1
+ # find nearest friends and print them out
+ sorted_friend_positions=sorted(friend_positions, key=lambda d:d['distance'])
+ nearest_friends = filter(lambda friend: friend['distance']==sorted_friend_positions[0]['distance'], sorted_friend_positions)
+ nearest_friends_name_list =[]
+ for friend in list(nearest_friends):
+  nearest_friends_name_list.append(friend['name'])
+ nearest_friends_name=', '.join(nearest_friends_name_list)
+ print(nearest_friends_name)
+
+
 
 messages={ 
  "Leslie":"I'm at home near Xiaobitan station.", 
  "Bob":"I'm at Ximen MRT station.", 
  "Mary":"I have a drink near Jingmei MRT station.", 
  "Copper":"I just saw a concert at Taipei Arena.", 
- "Vivian":"I'm at Xindian station waiting for you." 
+ "Vivian":"I'm at Xindian station waiting for you.",
 } 
+
 find_and_print(messages, "Wanlong") # print Mary 
 find_and_print(messages, "Songshan") # print Copper 
 find_and_print(messages, "Qizhang") # print Leslie 
