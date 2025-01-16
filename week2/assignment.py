@@ -77,9 +77,41 @@ find_and_print(messages, "Xindian City Hall") # print Vivian
 print('=== Task 2 ===')
 
 # your code here, maybe 
+booking_status = {
+ 'John':[],
+ 'Bob':[],
+ 'Jenny':[]
+}
+
 def book(consultants, hour, duration, criteria): 
  # your code here 
- print('test')
+ # list hours that wanted to book
+ book_hours=[]
+ for i in range(duration):
+  book_hours.append(hour+i)
+ # find available consultants
+ available_consultants=[]
+ for consultant in consultants:
+  available=True
+  for hour in book_hours:
+   if hour in booking_status[consultant['name']]:
+    available=False
+    break
+  if available:
+   available_consultants.append(consultant)
+ if available_consultants ==[]:
+  print('No Service')
+  return
+ # choose the best one base on criteria
+ sorted_available_consultants=sorted(available_consultants, key=lambda d:d[criteria])
+ if criteria=='rate':
+  sorted_available_consultants.reverse()
+ matched_consultant=sorted_available_consultants[0]['name']
+ print(matched_consultant)
+ # mark booking status
+ booking_status[matched_consultant]+=book_hours
+#  print(booking_status)
+ 
 consultants=[ 
  {"name":"John", "rate":4.5, "price":1000}, 
 {"name":"Bob", "rate":3, "price":1200}, 
