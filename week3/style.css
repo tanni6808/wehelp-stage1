@@ -1,0 +1,180 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem;
+  position: relative;
+}
+
+.nav-title {
+  font-weight: bold;
+}
+
+.nav-burger-menu {
+  width: 6rem;
+  margin: -2rem 0;
+  position: absolute;
+  right: 0%;
+  cursor: pointer;
+}
+
+.text {
+  font-size: 2rem;
+}
+
+.welcome-container {
+  height: 25rem;
+  position: relative;
+  background-color: #dcedf7;
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.welcome-text {
+  font-size: 4rem;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  @media screen and (max-width: 600px) {
+    font-size: 3rem;
+  }
+}
+
+.nav-container {
+  display: flex;
+  @media screen and (max-width: 600px) {
+    position: fixed;
+    top: 0%;
+    right: 0%;
+    height: 100vh;
+    z-index: 1;
+    background-color: white;
+    display: inline-block;
+    box-shadow: 0px -5px 5px rgb(0, 0, 0, 0.75);
+  }
+}
+
+.nav-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+}
+
+.nav-item {
+  margin-left: 2rem;
+  @media screen and (max-width: 600px) {
+    margin-left: 0;
+    padding: 2rem 7rem;
+  }
+}
+
+.main-container {
+  width: 120rem;
+  margin: 0 auto;
+  @media screen and (max-width: 1200px) {
+    width: 90%;
+  }
+}
+
+.main-grid {
+  margin: 1rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2rem;
+  @media screen and (min-width: 600px) and (max-width: 1200px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media screen and (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.promo {
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  background-color: #cbdce7;
+}
+
+.promo-1 {
+  grid-column: 1 / 3;
+}
+
+.promo-2 {
+  grid-column: 3 / 5;
+}
+
+.promo-3 {
+  grid-column: 5 / 7;
+  @media screen and (min-width: 600px) and (max-width: 1200px) {
+    grid-column: 1 / 5;
+  }
+}
+
+.promo-img {
+  background-image: url("landscape.jpg");
+  background-size: cover;
+  width: 8rem;
+  height: 100%;
+  margin-right: 1rem;
+}
+
+.figure {
+  background-image: url("landscape.jpg");
+  background-size: cover;
+  height: 20rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+@media screen and (min-width: 1200px) {
+  .figure-1,
+  .figure-6 {
+    grid-column: 1 / 3;
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 1200px) {
+  .figure-9 {
+    grid-column: 1 / 3;
+  }
+  .figure-10 {
+    grid-column: 3 / 5;
+  }
+}
+
+.star-icon {
+  width: 2rem;
+  opacity: 0.5;
+  padding: 1rem;
+  position: absolute;
+  top: 0%;
+  right: 0%;
+}
+
+.figure-text {
+  background-color: rgb(255, 255, 255, 0.75);
+  padding: 1rem;
+  text-align: center;
+}
