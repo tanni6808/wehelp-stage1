@@ -1,3 +1,4 @@
+##### TASK 1 #####
 # import ssl
 import urllib.request as req
 import json
@@ -60,3 +61,6 @@ for mrt in mrt_list:
 with open('mrt.csv', 'w', newline='', encoding='utf-8') as csvfile:
     writer=csv.writer(csvfile)
     writer.writerows(mrt_list)
+
+
+##### TASK 2 #####
