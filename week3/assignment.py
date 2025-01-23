@@ -1,9 +1,9 @@
-##### TASK 1 #####
-# import ssl
 import urllib.request as req
 import json
 import csv
-# ssl._create_default_https_context = ssl._create_unverified_context
+import bs4
+
+##### TASK 1 #####
 src1='https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment-1'
 src2='https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment-2'
 
@@ -64,3 +64,73 @@ with open('mrt.csv', 'w', newline='', encoding='utf-8') as csvfile:
 
 
 ##### TASK 2 #####
+def get_root_from_url(url):
+    request=req.Request(url, headers={
+        'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36 Edg/132.0.0.0', 'Cookie':'over18=1'
+    })
+    with req.urlopen(request) as response:
+        data=response.read().decode('utf-8')
+    return bs4.BeautifulSoup(data, 'html.parser')
+
+
+def get_article_title_list(root):
+    article_title_list=[]
+    titles=root.find_all('div', class_='title')
+    for title in titles:
+        if title.a!=None:
+            article_title_list.append([title.a.string, title.a['href']])
+        else:
+            # deleted_title=title.string.replace('\n', '').replace('\t', '')
+            article_title_list.append([title.string, None])
+    return article_title_list
+
+def get_article_info_row(root, article_title):
+    article_info_row=[]
+    
+    if article_title[1]!=None:
+        nrec_span=root.find('a', string=article_title[0]).parent.parent.find('div', class_='nrec').span
+        if nrec_span==None:
+            nrec=0
+        else:
+            nrec=nrec_span.string
+        title_link='https://www.ptt.cc'+ article_title[1]
+        root=get_root_from_url(title_link)
+        metalines=root.find_all('span', class_='article-meta-value')
+        if metalines==[]:
+            time=''
+        else:
+            time=metalines[-1].string
+        return [article_title[0], nrec, time]
+        
+    else:
+        nrec_span=root.find('div', string=article_title[0]).parent.find('div', class_='nrec').span
+        if nrec_span==None:
+            nrec=0
+        else:
+            nrec=nrec_span.string
+        return [article_title[0].replace('\n', '').replace('\t', ''), nrec, '']
+
+
+def get_article_info(first_page_url, pages):
+    count=0
+    url=first_page_url
+    article_info_list=[]
+    while count<pages:
+        count+=1
+        root=get_root_from_url(url)
+        article_title_list = get_article_title_list(root)
+        for article_title in article_title_list:
+            # print(get_article_info_row(root, article_title))
+            article_info_list.append(get_article_info_row(root, article_title))
+        next_page_url='https://www.ptt.cc'+root.find('a', string='‹ 上頁')['href']
+        url=next_page_url
+    return article_info_list
+
+
+test_url='https://www.ptt.cc/bbs/Lottery/index.html'
+
+article_info_list = get_article_info(test_url, 3)
+
+with open('article.csv', 'w', newline='', encoding='utf-8') as csvfile:
+    writer=csv.writer(csvfile)
+    writer.writerows(article_info_list)
