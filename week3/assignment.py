@@ -85,8 +85,6 @@ def get_article_title_list(root):
     return article_title_list
 
 def get_article_info_row(root, article_title):
-    article_info_row=[]
-    
     if article_title[1]!=None:
         nrec_span=root.find('a', string=article_title[0]).parent.parent.find('div', class_='nrec').span
         if nrec_span==None:
