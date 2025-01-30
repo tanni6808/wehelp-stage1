@@ -196,6 +196,23 @@ getNumber(30); // print 70
 console.log("=== Task 5 ===");
 function find(spaces, stat, n) {
   // your code here
+  // set stat of unavailable car to -1
+  for (i = 0; i < spaces.length; i++) {
+    if (stat[i] === 0) spaces[i] = -1;
+  }
+  // calc. difference between n & space in every car
+  const diff = spaces.map((space) => space - n);
+  // filter & sort diff
+  const diffSorted = diff.filter((d) => d >= 0).sort((a, b) => a - b);
+  // if there's no avaliable car
+  if (!diffSorted.length) {
+    console.log(-1);
+    return;
+  }
+  // choose the first one
+  const indexOfCar = spaces.indexOf(diffSorted[0] + n);
+  // print the index of most fitted car
+  console.log(indexOfCar);
 }
 find([3, 1, 5, 4, 3, 2], [0, 1, 0, 1, 1, 1], 2); // print 5
 find([1, 0, 5, 1, 3], [0, 1, 0, 1, 1], 4); // print -1
