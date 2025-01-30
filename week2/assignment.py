@@ -175,7 +175,27 @@ get_number(30) # print 70
 print('=== Task 5 ===')
 def find(spaces, stat, n): 
   # your code here 
-  print('test')
+  # set stat of unavailable car to -1
+  for i in range(len(stat)):
+   if stat[i]==0:
+    spaces[i]=-1
+  # calc. difference between n & space in every car
+  diff=[space-n for space in spaces]
+  # sort diff from min to max
+  diff_sorted=sorted(diff)
+  # choose the first one that's not a nagative number
+  pick_up=None
+  for diff in diff_sorted:
+   if diff>=0:
+    pick_up=diff
+    break
+  # if there's no avaliable car
+  if pick_up==None:
+   print(-1)
+   return
+  # print the index of most fitted car
+  index_of_car=spaces.index(n+pick_up)
+  print(index_of_car)
 find([3, 1, 5, 4, 3, 2], [0, 1, 0, 1, 1, 1], 2) # print 5 
 find([1, 0, 5, 1, 3], [0, 1, 0, 1, 1], 4) # print -1 
 find([4, 6, 5, 8], [0, 1, 1, 1], 4) # print 2 
