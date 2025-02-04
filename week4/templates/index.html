@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In</title>
+    <link href="{{ url_for('static', path='/style.css') }}" rel="stylesheet" />
+    <script defer src="{{ url_for('static', path='/script.js') }}"></script>
+  </head>
+  <body>
+    <header class="header">歡迎光臨，請輸入帳號密碼</header>
+    <main class="main-container">
+      <form class="form__container">
+        <div class="form form__title">登入系統</div>
+        <div class="form form__account">
+          <label for="account">帳號</label>
+          <input type="text" name="account" id="account" />
+        </div>
+        <div class="form form__password">
+          <label for="password">密碼</label>
+          <input type="password" name="password" id="password" />
+        </div>
+        <div class="form form__agree">
+          <label for="agree">同意條款</label>
+          <input type="checkbox" name="agree" id="agree" />
+        </div>
+        <div class="form form__submit">
+          <input type="submit" value="登入" id="signin" />
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
