@@ -39,3 +39,7 @@ async def error(request: Request, message: str):
 async def signout(request: Request):
     request.session["SIGNED_IN"]=False
     return RedirectResponse(url='/', status_code=status.HTTP_302_FOUND)
+
+@app.get('/square/{num}')
+async def square(num: int, request: Request):
+    return templates.TemplateResponse('square.html', {'request': request, 'result': num**2})

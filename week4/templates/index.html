@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block header %} 歡迎光臨，請輸入帳號密碼 {%
 endblock %} {% block content %}
 <form method="post" action="/signin" class="form__container">
-  <div class="form form__title">登入系統</div>
+  <div class="form title">登入系統</div>
   <div class="form form__username">
     <label for="username">帳號</label>
     <input type="text" name="username" id="username" />
@@ -16,6 +16,17 @@ endblock %} {% block content %}
   </div>
   <div class="form form__submit">
     <input type="submit" value="登入" id="signin" />
+  </div>
+</form>
+<hr class="solid" />
+<form class="form__container">
+  <div class="form title">計算正整數的平方</div>
+  <div class="form form__positive-number">
+    <label for="positive-number">正整數</label>
+    <input type="positive-number" name="positive-number" id="positive-number" />
+  </div>
+  <div class="form form__submit">
+    <input type="submit" value="計算" id="calc" />
   </div>
 </form>
 {% endblock %}
