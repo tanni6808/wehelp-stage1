@@ -10,11 +10,11 @@
   <body>
     <header class="header">歡迎光臨，請輸入帳號密碼</header>
     <main class="main-container">
-      <form class="form__container">
+      <form method="post" action="/signin" class="form__container">
         <div class="form form__title">登入系統</div>
-        <div class="form form__account">
-          <label for="account">帳號</label>
-          <input type="text" name="account" id="account" />
+        <div class="form form__username">
+          <label for="username">帳號</label>
+          <input type="text" name="username" id="username" />
         </div>
         <div class="form form__password">
           <label for="password">密碼</label>
