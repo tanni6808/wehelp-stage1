@@ -6,6 +6,7 @@
 
 ![task2-01](screenshots/2-01.png)
 
+    USE website;
     CREATE TABLE member (
         id bigint AUTO_INCREMENT,
         name varchar(255) NOT NULL,
