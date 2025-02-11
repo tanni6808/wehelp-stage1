@@ -12,7 +12,7 @@
         name varchar(255) NOT NULL,
         username varchar(255) NOT NULL,
         password varchar(255) NOT NULL,
-        follwer_count int NOT NULL DEFAULT 0,
+        follower_count int NOT NULL DEFAULT 0,
         time datetime DEFAULT CURRENT_TIMESTAMP(),
         PRIMARY KEY (id)
     );
