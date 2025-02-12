@@ -44,13 +44,13 @@
 
 - SELECT all rows from the member table.
 
-        SELECT \* FROM member;
+        SELECT * FROM member;
 
   ![task3-02](screenshots/3-02.png)
 
 - SELECT all rows from the member table, in descending order of time.
 
-        SELECT \* FROM member
+        SELECT * FROM member
         ORDER BY time DESC;
 
   ![task3-03](screenshots/3-03.png)
@@ -97,7 +97,7 @@
 
 - SELECT how many rows from the member table.
 
-        SELECT COUNT(\*)
+        SELECT COUNT(*)
         FROM member;
 
   ![task4-01](screenshots/4-01.png)
@@ -145,7 +145,7 @@
 
 - SELECT all messages, including sender names.
 
-        SELECT message.\*, member.name
+        SELECT message.*, member.name
         FROM message
         LEFT JOIN member ON message.member_id = member.id;
 
@@ -154,7 +154,7 @@
 - SELECT all messages, including sender names, where sender username equals to
   test.
 
-        SELECT message.\*, member.name
+        SELECT message.*, member.name
         FROM message
         LEFT JOIN member ON message.member_id = member.id
         WHERE member.username = 'test';
@@ -165,7 +165,7 @@
   count of messages where sender username equals to test.
 
         SELECT AVG(like_count)
-        FROM (SELECT message.\*, member.username
+        FROM (SELECT message.*, member.username
         FROM message
         LEFT JOIN member ON message.member_id = member.id) AS M
         WHERE username = 'test';
@@ -176,7 +176,7 @@
   count of messages GROUP BY sender username.
 
         SELECT username, AVG(like_count)
-        FROM (SELECT message.\*, member.username
+        FROM (SELECT message.*, member.username
         FROM message
         LEFT JOIN member ON message.member_id = member.id) AS M
         GROUP BY username;
