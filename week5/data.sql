@@ -27,8 +27,8 @@ CREATE TABLE `member` (
   `name` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `follower_count` int NOT NULL DEFAULT '0',
-  `time` datetime NOT NULL,
+  `follower_count` int unsigned NOT NULL DEFAULT '0',
+  `time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -54,7 +54,7 @@ CREATE TABLE `message` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `member_id` bigint NOT NULL,
   `content` varchar(255) NOT NULL,
-  `like_count` int NOT NULL DEFAULT '0',
+  `like_count` int unsigned NOT NULL DEFAULT '0',
   `time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `member_id` (`member_id`),
@@ -81,4 +81,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-12 13:23:46
+-- Dump completed on 2025-02-12 20:36:55

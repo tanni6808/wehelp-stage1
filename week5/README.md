@@ -21,9 +21,16 @@
             PRIMARY KEY (id)
         );
         ALTER TABLE member
-        MODIFY time datetime NOT NULL;
+        MODIFY time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP();
 
   ![task2-02](screenshots/2-02.png)
+
+  完成所有題目後才發現忘記給 follower_count 加上 unsigned 屬性，在這邊補上:
+
+        ALTER TABLE member
+        MODIFY follower_count int unsigned NOT NULL DEFAULT 0;
+
+  ![task2-02-2](screenshots/2-02-2.png)
 
 ## Task 3
 
@@ -142,6 +149,13 @@
         );
 
   ![task5-01](screenshots/5-01.png)
+
+  完成所有題目後才發現忘記給 like_count 加上 unsigned 屬性，在這邊補上:
+
+        ALTER TABLE message
+        MODIFY like_count int unsigned NOT NULL DEFAULT 0;
+
+  ![task5-01-2](screenshots/5-01-2.png)
 
 - SELECT all messages, including sender names.
 
