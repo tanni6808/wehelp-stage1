@@ -1,5 +1,17 @@
-{% extends "base.html" %} {% block title %} 會員 {% endblock %} {% block header
-%} 歡迎光臨，這是會員頁 {% endblock %} {% block content %}
-<div class="">name，歡迎登入系統</div>
-<div class=""><a href="">登出系統</a></div>
-{% endblock %}
+{% extends "base.html" %} {% from "macros.html" import form_input %} {% block
+title %} 會員 {% endblock %} {% block header %} 歡迎光臨，這是會員頁 {% endblock
+%} {% block content %}
+<div class="">{{name}}，歡迎登入系統</div>
+<div class=""><a href="/signout">登出系統</a></div>
+<hr class="solid" />
+<div class="form-title">快來留言吧</div>
+<form action="/createMessage" method="post">
+  {{ form_input("message", "內容", required=true)}}
+  <button class="form-input" type="submit">送出</button>
+</form>
+<hr class="solid" />
+{% for message in messages %}
+<div>
+  <span class="msg-name">{{ message.name }}：</span>{{ message.content }}
+</div>
+{% endfor %} {% endblock %}
