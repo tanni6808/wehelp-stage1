@@ -11,7 +11,10 @@ title %} 會員 {% endblock %} {% block header %} 歡迎光臨，這是會員頁
 </form>
 <hr class="solid" />
 {% for message in messages %}
-<div>
-  <span class="msg-name">{{ message.name }}：</span>{{ message.content }}
+<div class="message">
+  <span class="msg-name">{{ message.name }}：</span>{{ message.content }} {% if
+  message.deletable %}
+  <button id="{{message.id}}" onclick="deleteMessage(this.id)">X</button>
+  {% endif %}
 </div>
 {% endfor %} {% endblock %}

@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Form, status
+from fastapi import FastAPI, Request, Form, status, Body
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse, HTMLResponse
@@ -27,11 +27,11 @@ async def member(request: Request):
     if request.session['user']==[]:
         return RedirectResponse(url='/', status_code=status.HTTP_302_FOUND)
     mycursor=mydb.cursor()
-    mycursor.execute('SELECT member.name, message.content FROM message LEFT JOIN member ON message.member_id = member.id;')
+    mycursor.execute('SELECT member.name, message.content, message.id FROM message LEFT JOIN member ON message.member_id = member.id;')
     myresult=mycursor.fetchall()
     messages=[]
     for m in myresult:
-        messages.insert(0, {'name':m[0], 'content':m[1]})
+        messages.insert(0, {'name':m[0], 'content':m[1], 'deletable': m[0]==request.session['user']['name'], 'id': m[2]})
     return templates.TemplateResponse(request=request, name='pages/member.html', context={"name": request.session['user']['name'], "messages": messages})
 
 @app.get('/error')
@@ -72,12 +72,15 @@ async def create_message(message: Annotated[str, Form()], request: Request):
     mydb.commit()
     return RedirectResponse(url='/member', status_code=status.HTTP_302_FOUND)
 
-@app.get('/test')
-async def test():
+@app.post('/deleteMessage')
+async def delete_message(body: Annotated[str, Body()], request: Request):
     mycursor=mydb.cursor()
-    mycursor.execute('SELECT*FROM member WHERE username="123456"')
+    mycursor.execute('SELECT member_id FROM message WHERE id = %s', (body, ))
     myresult=mycursor.fetchall()
-    print(myresult)
-    return {'return': 'OK'}
-
+    if(myresult[0][0]==request.session['user']['id']):
+        mycursor.execute('DELETE FROM message WHERE id=%s', (body,))
+        mydb.commit()
+        return {'result': True}
+    else: return {'result': False}
+ 
 app.mount('/static', StaticFiles(directory='static'), name='static')
