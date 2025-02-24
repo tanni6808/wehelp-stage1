@@ -20,11 +20,12 @@ app.add_middleware(SessionMiddleware, secret_key='some-random-string')
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
+    # request.session['user']={}
     return templates.TemplateResponse(request=request, name='pages/index.html')
 
 @app.get('/member')
 async def member(request: Request):
-    if request.session['user']==[]:
+    if 'user' not in request.session:
         return RedirectResponse(url='/', status_code=status.HTTP_302_FOUND)
     mycursor=mydb.cursor()
     mycursor.execute('SELECT member.name, message.content, message.id FROM message LEFT JOIN member ON message.member_id = member.id;')
