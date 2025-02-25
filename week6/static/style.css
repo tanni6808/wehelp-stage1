@@ -22,17 +22,8 @@ div {
   font-weight: bold;
 }
 
-.form-title--inblock {
-  font-weight: bold;
-  padding-top: 10px;
-}
-
 .form-input {
   margin: 3px 0;
-}
-
-.form-input--inblock {
-  margin: 0 3px;
 }
 
 hr.solid {
