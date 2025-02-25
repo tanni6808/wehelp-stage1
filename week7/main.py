@@ -90,7 +90,7 @@ async def delete_message(body: Annotated[str, Body()], request: Request):
 @app.get('/api/member')
 async def get_member(username: Annotated[str, None], request: Request):
     if 'user' not in request.session:
-        return RedirectResponse(url='/', status_code=302)
+        return {"data": None}
     mycursor=mydb.cursor()
     mycursor.execute('SELECT * FROM member WHERE username = %s', (username, ))
     myresult=mycursor.fetchall()
