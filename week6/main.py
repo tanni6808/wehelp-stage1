@@ -81,5 +81,17 @@ async def delete_message(body: Annotated[str, Body()], request: Request):
         mydb.commit()
         return {'result': True}
     else: return {'result': False}
+
+@app.get('/api/member')
+async def get_member(username: Annotated[str, None], request: Request):
+    if 'user' not in request.session or request.session['user']=={}:
+        return RedirectResponse(url='/', status_code=status.HTTP_302_FOUND)
+    mycursor=mydb.cursor()
+    mycursor.execute('SELECT * FROM member WHERE username = %s', (username, ))
+    myresult=mycursor.fetchall()
+    if myresult==[]:
+        return {'data': None}
+    data=myresult[0]
+    return {"data": {"id": data[0], "name": data[1], 'username': username}}
  
 app.mount('/static', StaticFiles(directory='static'), name='static')
