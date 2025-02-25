@@ -4,7 +4,9 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse, HTMLResponse
 from starlette.middleware.sessions import SessionMiddleware
 from typing import Annotated
+from pydantic import BaseModel
 import mysql.connector
+import json
 
 mydb=mysql.connector.connect(
     host='localhost',
@@ -12,6 +14,9 @@ mydb=mysql.connector.connect(
     password='123456',
     database='website'
 )
+
+class ChangeNameRequest(BaseModel):
+    name: str
 
 app=FastAPI()
 templates=Jinja2Templates(directory='templates')
@@ -93,5 +98,16 @@ async def get_member(username: Annotated[str, None], request: Request):
         return {'data': None}
     data=myresult[0]
     return {"data": {"id": data[0], "name": data[1], 'username': username}}
+
+@app.patch('/api/member')
+async def change_name(body: Annotated[ChangeNameRequest, Body()], request: Request):
+    try:
+        new_name=body.name
+        request.session['user']['name']=new_name
+        mycursor=mydb.cursor()
+        mycursor.execute('UPDATE member SET name = %s WHERE id = %s', (new_name, request.session['user']['id']))
+        mydb.commit()
+    except: {'error': True}
+    return {'ok': True}
  
 app.mount('/static', StaticFiles(directory='static'), name='static')

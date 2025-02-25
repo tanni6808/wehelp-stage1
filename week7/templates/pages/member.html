@@ -1,12 +1,18 @@
 {% extends "base.html" %} {% from "macros.html" import form_input,
 api_form_input %} {% block title %} 會員 {% endblock %} {% block header %}
 歡迎光臨，這是會員頁 {% endblock %} {% block content %}
-<div class="top-msg">{{name}}，歡迎登入系統</div>
+<div class="top-msg"><span class="user-name">{{name}}</span>，歡迎登入系統</div>
 <div class=""><a href="/signout">登出系統</a></div>
 <form id="form-get-name">
   <div class="form-title">查詢會員姓名</div>
   {{ api_form_input("get-name", "查詢", required=true)}}
   <div class="" id="render-get-name"></div>
+</form>
+<form id="form-change-name">
+  <div class="form-title">更新我的姓名</div>
+  {{ api_form_input("change-name", "更新",placeholder="輸入新的姓名",
+  required=true)}}
+  <div class="" id="render-change-name"></div>
 </form>
 <hr class="solid" />
 <form action="/createMessage" method="post">
@@ -17,8 +23,9 @@ api_form_input %} {% block title %} 會員 {% endblock %} {% block header %}
 <hr class="solid" />
 {% for message in messages %}
 <div class="message">
-  <span class="msg-name">{{ message.name }}：</span>{{ message.content }} {% if
-  message.deletable %}
+  <span class="msg-name{% if message.deletable %} user-name {% endif %}"
+    >{{ message.name }}：</span
+  >{{ message.content }} {% if message.deletable %}
   <button id="{{message.id}}" onclick="deleteMessage(this.id)">X</button>
   {% endif %}
 </div>
