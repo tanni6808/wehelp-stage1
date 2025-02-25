@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+}
+div {
+  margin: 1px 0;
+}
+.header {
+  background-color: #213243;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 20px;
+  text-align: center;
+}
+
+.main-container {
+  text-align: center;
+  padding: 30px 0;
+}
+
+.form-title {
+  font-weight: bold;
+}
+
+.form-title--inblock {
+  font-weight: bold;
+  padding-top: 10px;
+}
+
+.form-input {
+  margin: 3px 0;
+}
+
+.form-input--inblock {
+  margin: 0 3px;
+}
+
+hr.solid {
+  border-top: 1px solid #ccc;
+  margin: 30px 0;
+}
+
+.msg-name {
+  font-weight: bold;
+}

@@ -1,0 +1,16 @@
+{% macro form_input(name, label, type="text", value="", required=false) %}
+<div class="form-input">
+  <label for="{{name}}">{{label}}</label>
+  <input
+    type="{{type}}"
+    name="{{name}}"
+    value="{{value}}"
+    {%
+    if
+    required
+    %}required{%
+    endif
+    %}
+  />
+</div>
+{% endmacro %}
