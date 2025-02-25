@@ -1,21 +1,16 @@
-{% extends "base.html" %} {% from "macros.html" import form_input %} {% block
-title %} 會員 {% endblock %} {% block header %} 歡迎光臨，這是會員頁 {% endblock
-%} {% block content %}
-<div class="">{{name}}，歡迎登入系統</div>
+{% extends "base.html" %} {% from "macros.html" import form_input,
+api_form_input %} {% block title %} 會員 {% endblock %} {% block header %}
+歡迎光臨，這是會員頁 {% endblock %} {% block content %}
+<div class="top-msg">{{name}}，歡迎登入系統</div>
 <div class=""><a href="/signout">登出系統</a></div>
-<div class="form-title--inblock">查詢會員姓名</div>
 <form id="form-get-name">
-  <input
-    class="form-input--inblock"
-    id="input-get-name"
-    type="text"
-    required
-  /><input type="submit" value="查詢" />
+  <div class="form-title">查詢會員姓名</div>
+  {{ api_form_input("get-name", "查詢", required=true)}}
+  <div class="" id="render-get-name"></div>
 </form>
-<div class="" id="render-name"></div>
 <hr class="solid" />
-<div class="form-title">快來留言吧</div>
 <form action="/createMessage" method="post">
+  <div class="form-title">快來留言吧</div>
   {{ form_input("message", "內容", required=true)}}
   <button class="form-input" type="submit">送出</button>
 </form>

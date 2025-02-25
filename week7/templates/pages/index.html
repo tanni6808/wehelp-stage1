@@ -1,16 +1,16 @@
 {% extends "base.html" %} {% from "macros.html" import form_input %} {% block
 title %} 首頁 {% endblock %} {% block header %} 歡迎光臨，請註冊登入系統 {%
 endblock %} {% block content %}
-<div class="form-title">註冊帳號</div>
 <form action="/signup" method="post">
+  <div class="form-title">註冊帳號</div>
   {{ form_input("name", "姓名", required=true)}} {{ form_input("username",
   "帳號", required=true)}} {{ form_input("password", "密碼", "password",
   required=true)}}
   <button class="form-input" type="submit">註冊</button>
 </form>
 <hr class="solid" />
-<div class="form-title">登入系統</div>
 <form action="/signin" method="post">
+  <div class="form-title">登入系統</div>
   {{ form_input("username", "帳號", required=true)}} {{ form_input("password",
   "密碼", type="password", required=true)}}
   <button class="form-input" type="submit">登入</button>

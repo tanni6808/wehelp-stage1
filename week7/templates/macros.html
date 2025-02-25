@@ -13,4 +13,19 @@
     %}
   />
 </div>
+{% endmacro %} {% macro api_form_input(api_name, submit_text, type="text",
+required=false) %}
+<div class="form-input">
+  <input
+    type="{{type}}"
+    id="input-{{api_name}}"
+    {%
+    if
+    required
+    %}required{%
+    endif
+    %}
+  />
+  <input type="submit" value="{{submit_text}}" />
+</div>
 {% endmacro %}

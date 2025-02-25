@@ -1,8 +1,8 @@
 "use strict";
 
-const getNameInput = document.getElementById("input-get-name");
+const inputGetName = document.getElementById("input-get-name");
 const formGetName = document.getElementById("form-get-name");
-const renderNameEl = document.getElementById("render-name");
+const renderNameEl = document.getElementById("render-get-name");
 
 const deleteMessage = async function (id) {
   const confirmation = confirm("確定刪除？");
@@ -18,12 +18,15 @@ const deleteMessage = async function (id) {
 const getNameAndRender = async function (username) {
   let response = await fetch(`/api/member?username=${username}`);
   let data = await response.json();
-  if (data.data === null) return (renderNameEl.textContent = "查無資料！");
-  renderNameEl.textContent = `${data.data.name} (${username})`;
+  const userdata = data.data;
+  if (userdata === null) return (renderNameEl.textContent = "查無資料！");
+  return (renderNameEl.textContent = `${userdata.name} (${username})`);
 };
 
-formGetName.addEventListener("submit", function (e) {
-  e.preventDefault();
-  const username = getNameInput.value;
-  getNameAndRender(username);
-});
+if (formGetName) {
+  formGetName.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const username = inputGetName.value;
+    getNameAndRender(username);
+  });
+}
