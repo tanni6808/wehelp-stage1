@@ -107,7 +107,7 @@ async def change_name(body: Annotated[ChangeNameRequest, Body()], request: Reque
         mycursor=mydb.cursor()
         mycursor.execute('UPDATE member SET name = %s WHERE id = %s', (new_name, request.session['user']['id']))
         mydb.commit()
-    except: {'error': True}
+    except: return {'error': True}
     return {'ok': True}
  
 app.mount('/static', StaticFiles(directory='static'), name='static')
